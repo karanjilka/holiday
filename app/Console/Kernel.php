@@ -42,7 +42,7 @@ class Kernel extends ConsoleKernel
                 foreach($subscribers as $subscriber){
                     $data = compact('subscriber','rows');
                     Mail::send('emails.daily-notification', $data, function($message) use ($subscriber) {
-                        $message->to($subscriber->email);
+                        $message->to($subscriber->email_id);
                         $message->subject('Indian Holiday : Daily notification');
                     });
                 }
@@ -60,13 +60,13 @@ class Kernel extends ConsoleKernel
 
             if(!empty($rows)){
                 $subscribers = DB::table('holiday_subscriber')
-                ->where('daily_preference','=','1')
+                ->where('weekly_preference','=','1')
                 ->where('active','=','1')
                 ->get();
                 foreach($subscribers as $subscriber){
                     $data = compact('subscriber','rows');
                     Mail::send('emails.daily-notification', $data, function($message) use ($subscriber) {
-                        $message->to($subscriber->email);
+                        $message->to($subscriber->email_id);
                         $message->subject('Indian Holiday : Weekly notification');
                     });
                 }
@@ -84,14 +84,14 @@ class Kernel extends ConsoleKernel
 
             if(!empty($rows)){
                 $subscribers = DB::table('holiday_subscriber')
-                ->where('daily_preference','=','1')
+                ->where('monthly_preference','=','1')
                 ->where('active','=','1')
                 ->get();
                 foreach($subscribers as $subscriber){
                     $data = compact('subscriber','rows');
                     Mail::send('emails.daily-notification', $data, function($message) use ($subscriber) {
-                        $message->to($subscriber->email);
-                        $message->subject('Indian Holiday : Weekly notification');
+                        $message->to($subscriber->email_id);
+                        $message->subject('Indian Holiday : Monlty notification');
                     });
                 }
             }
